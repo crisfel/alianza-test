@@ -245,7 +245,7 @@
                     }
 
                     $.ajax({
-                        url: 'http://127.0.0.1:8000/api/v1/employee/store',
+                        url: '{{getenv('APP_URL')}}/api/v1/employee/store',
                         method: 'POST',
                         data: {
                             'name': $('#name').val(),
@@ -271,7 +271,7 @@
                                 allowOutsideClick: false,
                                 allowEscapeKey: false
                             }).then(function(){
-                                window.location="http://127.0.0.1:8000/employees";
+                                window.location="{{getenv('APP_URL')}}/employees";
                             });
                         }
                     });

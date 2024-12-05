@@ -140,7 +140,7 @@
                 }
 
                 $.ajax({
-                    url: 'http://127.0.0.1:8000/api/v1/position/store',
+                    url: '{{getenv('APP_URL')}}/api/v1/position/store',
                     method: 'POST',
                     data: {
                         'name': $('#name').val(),
@@ -156,7 +156,7 @@
                             allowOutsideClick: false,
                             allowEscapeKey: false
                         }).then(function(){
-                            window.location="http://127.0.0.1:8000/positions";
+                            window.location="{{getenv('APP_URL')}}/positions";
                         });
                     }
                 });
@@ -186,7 +186,7 @@
             }
 
             $.ajax({
-                url: 'http://127.0.0.1:8000/api/v1/position/update',
+                url: '{{getenv('APP_URL')}}/api/v1/position/update',
                 method: 'POST',
                 data: {
                     'id': id,
@@ -203,7 +203,7 @@
                         allowOutsideClick: false,
                         allowEscapeKey: false
                     }).then(function(){
-                        window.location="http://127.0.0.1:8000/positions";
+                        window.location="{{getenv('APP_URL')}}/positions";
                     });
                 }
             });
@@ -222,7 +222,7 @@
             }).then(function(result){
                 if(result.isConfirmed) {
                     $.ajax({
-                        url: 'http://127.0.0.1:8000/api/v1/position/' + id,
+                        url: '{{getenv('APP_URL')}}/api/v1/position/' + id,
                         method: 'DELETE',
                         success: function () {
                             Swal.fire({
@@ -234,7 +234,7 @@
                                 allowOutsideClick: false,
                                 allowEscapeKey: false
                             }).then(function () {
-                                window.location = "http://127.0.0.1:8000/positions";
+                                window.location = "{{getenv('APP_URL')}}/positions";
                             });
                         }
                     });
