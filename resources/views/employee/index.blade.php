@@ -128,6 +128,7 @@
                                                                     <label class="form-label" for="role">Asigna un Rol</label>
                                                                     <select class="form-control" id="role{{$employee->id}}" name="role{{$employee->id}}" onchange="showBosses('{{$employee->id}}')" aria-label="select example" data-header="role">
                                                                         <option value="default" selected>Seleccione</option>
+                                                                        <option value="{{$employee->role}}" Selected>{{$employee->role}}</option>
                                                                         <option value="Colaborador">Colaborador</option>
                                                                         <option value="Jefe">Jefe</option>
                                                                     </select>
