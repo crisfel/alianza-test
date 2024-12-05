@@ -152,7 +152,14 @@
                                                                     <select class="form-control" id="positionIDs{{$employee->id}}" name="positionIDs{{$employee->id}}" aria-label="select example" data-header="role" multiple>
                                                                         <option value="default" disabled>Seleccione</option>
                                                                         @foreach($positions as $position)
-                                                                            <option value="{{$position->id}}">{{$position->name}}</option>
+                                                                            <option value="{{$position->id}}"
+                                                                            @foreach($employeesPositions as $employeePosition)
+                                                                                @if($employeePosition->user_id == $employee->id && $employeePosition->position_id == $position->id)
+                                                                                    selected
+                                                                                    @break
+                                                                                @endif
+                                                                            @endforeach
+                                                                            >{{$position->name}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
@@ -174,7 +181,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     @endforeach
                                     </tbody>
                                 </table>

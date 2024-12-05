@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\Employee\EmployeeRepositoryInterface;
+use App\Repositories\Contracts\EmployeePosition\EmployeePositionRepositoryInterface;
 use App\Repositories\Contracts\Position\PositionRepositoryInterface;
 use App\Repositories\Position\PositionRepository;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class HomeController extends Controller
     {
         $bosses = $this->employeeRepository->getByRole(self::USER_ROLE_BOSS);
         $positions = $this->positionRepository->getAll();
+
 
         return view('home', ['bosses' => $bosses, 'positions' => $positions]);
     }

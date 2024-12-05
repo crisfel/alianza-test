@@ -30,5 +30,29 @@ class EmployeePositionRepository implements EmployeePositionRepositoryInterface
         }
     }
 
+    public function getByUserID($id)
+    {
+        try {
+            return  UserPosition::where('user_id', $id)->get();
+        } catch(Exception $e) {
+            return [
+                'status' => 500,
+                'message' => 'ERROR DE BASE DE DATOS: ' . $e->getMessage()
+            ];
+        }
+    }
+
+    public function getAll()
+    {
+        try {
+            return  UserPosition::get();
+        } catch(Exception $e) {
+            return [
+                'status' => 500,
+                'message' => 'ERROR DE BASE DE DATOS: ' . $e->getMessage()
+            ];
+        }
+    }
+
 
 }
