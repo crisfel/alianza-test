@@ -66,7 +66,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="editPositionModal{{$employee->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
+                                        <div class="modal fade" id="editEmployeeModal{{$employee->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -78,13 +78,98 @@
                                                     <div class="modal-body">
                                                         <div class="container">
                                                             <div class="row">
+                                                                <div class="form-group col-md-6 mt-2">
+                                                                    <label for="name">Nombre</label>
+                                                                    <input class="form-control" type="text" name="name" id="name{{$employee->id}}" value="{{$employee->name}}" required>
+                                                                </div>
+                                                                <div class="form-group col-md-6 mt-2">
+                                                                    <label for="lastName">Apellidos</label>
+                                                                    <input class="form-control" type="text" name="lastNam" id="lastName{{$employee->id}}" value="{{$employee->last_name}}" required>
+                                                                </div>
+                                                                <div class="form-group col-md-6 mt-2">
+                                                                    <label for="identification">Identificación</label>
+                                                                    <input class="form-control" type="text" name="identification" id="identification{{$employee->id}}" value="{{$employee->identification}}" required>
+                                                                </div>
+                                                                <div class="form-group col-md-6 mt-2">
+                                                                    <label for="email">Email</label>
+                                                                    <input class="form-control" type="email" name="email{{$employee->id}}" id="email{{$employee->id}}" value="{{$employee->email}}" required>
+                                                                </div>
+                                                                <div class="form-group col-md-6 mt-2">
+                                                                    <label for="address">Dirección</label>
+                                                                    <input class="form-control" type="text" name="address{{$employee->id}}" id="address{{$employee->id}}" value="{{$employee->address}}" required>
+                                                                </div>
+                                                                <div class="form-group col-md-6 mt-2">
+                                                                    <label for="phone">Teléfono</label>
+                                                                    <input class="form-control" type="text" name="phone{{$employee->id}}" id="phone{{$employee->id}}" value="{{$employee->phone}}" required>
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="form-label" for="city">Seleccione una ciudad</label>
+                                                                    <select class="form-control" id="city{{$employee->id}}" name="city{{$employee->id}}" aria-label="select example" data-header="Tipo">
+                                                                        <option value="default" disabled>Seleccione</option>
+                                                                        <option value="{{$employee->city}}" Selected>{{$employee->city}}</option>
+                                                                        <option value="Bogota">Bogotá</option>
+                                                                        <option value="Medellin">Medellín</option>
+                                                                        <option value="Barranquilla">Barranquilla</option>
+                                                                        <option value="Cartagena">Cartagena</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="form-label" for="department">Seleccione un departamento</label>
+                                                                    <select class="form-select" id="department{{$employee->id}}" name="department{{$employee->id}}" aria-label="select example" data-header="Tipo">
+                                                                        <option value="default" disabled>Seleccione</option>
+                                                                        <option value="{{$employee->department}}" Selected>{{$employee->department}}</option>
+                                                                        <option value="Cundinamarca">Cundinamarca</option>
+                                                                        <option value="Antioquia">Antioquia</option>
+                                                                        <option value="Atlantico">Atlantico</option>
+                                                                        <option value="Bolivar">Bolivar</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-6 mt-2">
+                                                                    <label class="form-label" for="role">Asigna un Rol</label>
+                                                                    <select class="form-control" id="role{{$employee->id}}" name="role{{$employee->id}}" onchange="showBosses('{{$employee->id}}')" aria-label="select example" data-header="role">
+                                                                        <option value="default" selected>Seleccione</option>
+                                                                        <option value="Colaborador">Colaborador</option>
+                                                                        <option value="Jefe">Jefe</option>
+                                                                    </select>
+                                                                </div>
 
+                                                                <div style="display:none" id="bossIDDiv{{$employee->id}}" class="col-md-6 mt-2">
+                                                                    <label class="form-label" for="bossID">Asigna un jefe</label>
+                                                                    <select class="form-control" id="bossID{{$employee->id}}" name="bossID{{$employee->id}}" aria-label="select example" data-header="bossID" disabled>
+                                                                        <option value="default" selected>Seleccione</option>
+                                                                        @foreach($bosses as $boss)
+                                                                            <option value="{{$boss->id}}">{{$boss->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-6 mt-2 mx-auto">
+                                                                    <label class="form-label" for="positionIDs">Asigna un cargo</label>
+                                                                    <select class="form-control" id="positionIDs{{$employee->id}}" name="positionIDs{{$employee->id}}" aria-label="select example" data-header="role" multiple>
+                                                                        <option value="default" disabled>Seleccione</option>
+                                                                        @foreach($positions as $position)
+                                                                            <option value="{{$position->id}}">{{$position->name}}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="row d-flex justify-content-center">
+                                                                        <div class="form-group col-md-6 mt-3">
+                                                                            <label for="password">Contraseña</label>
+                                                                            <input class="form-control" type="password" name="password" id="password{{$employee->id}}" required>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" id="employeeID{{$employee->id}}" value="{{$employee->id}}">
+                                                                <div class="col-md-12 d-flex justify-content-center mt-4">
+                                                                    <input type="submit" class="btn btn-success" id="btn-upload" onclick="updateEmployee('{{$employee->id}}')" value="Modificar">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
                                     @endforeach
                                     </tbody>
                                 </table>
@@ -209,7 +294,6 @@
                 });
 
                 $('#role').on('change', function() {
-
                     $('#bossIDDiv').css('display', 'none');
                     $('#bossID').prop('disabled', true);
 
@@ -218,11 +302,21 @@
                         $('#bossIDDiv').css('display', 'block');
                         $('#bossID').prop('disabled', false);
                     }
-                    $('#createEmployeeModal').modal('show');
                 });
 
                 $('#btn-send').on('click', function(){
-                    console.log($('#bossID').val());
+                    console.log('name:' + $('#name').val());
+                    console.log('lastName:' + $('#lastName').val());
+                    console.log('phone:' + $('#phone').val());
+                    console.log('identification:' + $('#identification').val());
+                    console.log('address:' + $('#address').val());
+                    console.log('city:' + $('#city').val());
+                    console.log('department:' + $('#department').val());
+                    console.log('email:' + $('#email').val());
+                    console.log('password:' + $('#password').val());
+                    console.log('role:' + $('#role').val());
+                    console.log('bossID:' + $('#bossID').val());
+                    console.log('positionIDs:' + $('#positionIDs').val());
 
                     if ($('#name').val() == '' || $('#lastName').val() == '' || $('#identification').val() == '' ||
                         $('#email').val() == '' || $('#address').val() == '' || $('#phone').val() == '' ||
@@ -278,6 +372,28 @@
                 });
 
             });
+        </script>
+
+        <script>
+            function showEditModal(id)
+            {
+                $('#editEmployeeModal'+id).modal('show');
+            }
+
+            function showBosses(id)
+            {
+                console.log($('#bossIDDiv' + id));
+
+                $('#bossIDDiv' + id).css('display', 'none');
+
+                $('#bossID' + id).prop('disabled', true);
+
+                if ($('#role' + id).val() == 'Colaborador') {
+                    $('#bossIDDiv' + id).css('display', 'block');
+                    $('#bossID' + id).prop('disabled', false);
+                }
+            }
+
         </script>
 
 
