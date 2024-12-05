@@ -139,7 +139,11 @@
                                                                     <select class="form-control" id="bossID{{$employee->id}}" name="bossID{{$employee->id}}" aria-label="select example" data-header="bossID" disabled>
                                                                         <option value="default" selected>Seleccione</option>
                                                                         @foreach($bosses as $boss)
-                                                                            <option value="{{$boss->id}}">{{$boss->name}}</option>
+                                                                            @if (isset($employee->boss) && $employee->boss->id == $boss->id)
+                                                                                <option value="{{$boss->id}}" selected>{{$boss->name}}</option>
+                                                                            @else
+                                                                                <option value="{{$boss->id}}">{{$boss->name}}</option>
+                                                                            @endif
                                                                         @endforeach
                                                                     </select>
                                                                 </div>
