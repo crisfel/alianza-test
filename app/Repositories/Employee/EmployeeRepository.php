@@ -34,19 +34,19 @@ class EmployeeRepository implements EmployeeRepositoryInterface
             $employee->password = $DTO->password;
             $employee->role = $DTO->role;
 
-        if ($DTO->bossID =! 0) {
-            $employee->boss_id = $DTO->bossID;
-        }
+            if (isset($DTO->bossID)) {
+                $employee->boss_id = $DTO->bossID;
+            }
 
-        $employeeStored = $employee->save();
+            $employeeStored = $employee->save();
 
-        if ($employeeStored) {
-            return [
-                'status' => 200,
-                'message' => 'employee stored'
-            ];
+            if ($employeeStored) {
+                return [
+                    'status' => 200,
+                    'message' => 'employee stored'
+                ];
 
-        }
+            }
 
         } catch( Exception $e) {
             return [
@@ -93,7 +93,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 $employee->email = $DTO->email;
             }
 
-            if ($DTO->bossID =! 0) {
+            if (isset($DTO->bossID)) {
                 $employee->boss_id = $DTO->bossID;
             }
 

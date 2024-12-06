@@ -33,11 +33,9 @@ class UpdateController extends Controller
             $updateEmployeeDTO->city = strval($request->input('city'));
             $updateEmployeeDTO->department = strval($request->input('department'));
             $updateEmployeeDTO->email = strval($request->input('email'));
-            $updateEmployeeDTO->position = array_map([$this, 'parseInt'], (array) $request->positionIDs);;
+            $updateEmployeeDTO->position = array_map([$this, 'parseInt'], (array) $request->positionIDs);
+            $updateEmployeeDTO->bossID = $request->input('bossID');
 
-            if (isset($request->bossID)) {
-                $updateEmployeeDTO->bossID = intval($request->input('bossID'));
-            }
 
             if (isset($request->password)) {
                 $updateEmployeeDTO->password = strval($request->input('password'));
