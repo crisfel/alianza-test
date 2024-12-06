@@ -30,7 +30,7 @@ class ShowAllController extends Controller
     public function __invoke()
     {
         $employees = $this->employeeRepository->getAll();
-        $bosses = $this->employeeRepository->getByRole(self::USER_ROLE_BOSS);
+        $bosses = $this->employeeRepository->getByRole('jefe');
         $positions = $this->positionRepository->getAll();
         $employeesPositions = $this->employeePositionRepository->getAll();
         return view('employee.index', ['employees' => $employees, 'bosses' => $bosses, 'positions' => $positions, 'employeesPositions' => $employeesPositions]);

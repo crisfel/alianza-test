@@ -39,7 +39,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $bosses = $this->employeeRepository->getByRole(self::USER_ROLE_BOSS);
+        $bosses = $this->employeeRepository->getByRole('jefe');
         $positions = $this->positionRepository->getAll();
 
 
