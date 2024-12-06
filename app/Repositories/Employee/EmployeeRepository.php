@@ -89,6 +89,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 $employee->department = $DTO->department;
             }
 
+            if (! empty($DTO->email)) {
+                $employee->email = $DTO->email;
+            }
+
             if ($DTO->bossID =! 0) {
                 $employee->boss_id = $DTO->bossID;
             }
