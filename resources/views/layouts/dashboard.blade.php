@@ -66,7 +66,14 @@
                 <li class="nav-item"> <a class="nav-link" href="#" data-lte-toggle="fullscreen"> <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i> <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none;"></i> </a> </li> <!--end::Fullscreen Toggle--> <!--begin::User Menu Dropdown-->
                 <li class="nav-item dropdown user-menu"> <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"> <img src="../../dist/assets/img/mujer-mini.png" class="user-image rounded-circle shadow" alt="User Image"> <span class="d-none d-md-inline">{{Auth::user()->name}}</span> </a>
                     <ul class="dropdown-menu dropdown-menu-end"> <!--begin::User Image-->
-                        <li class="user-footer"><a href="#" class="btn btn-default btn-flat float-end">Cerrar Sesión</a> </li> <!--end::Menu Footer-->
+                        <li class="user-footer"><a href="{{ route('logout') }}"
+                                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();"
+                                                   class="btn btn-default btn-flat float-end">Cerrar Sesión</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li> <!--end::Menu Footer-->
                     </ul>
                 </li> <!--end::User Menu Dropdown-->
             </ul> <!--end::End Navbar Links-->
