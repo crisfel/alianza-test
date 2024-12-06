@@ -32,7 +32,6 @@ class CreateRequest extends FormRequest
             'email' => 'required|string',
             'password' => 'required|string',
             'role' => 'required|string',
-            'boosID' => 'numeric',
             'positionIDs' => 'required'
         ];
     }

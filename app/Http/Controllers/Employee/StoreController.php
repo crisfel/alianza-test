@@ -33,7 +33,16 @@ class StoreController extends Controller
             $createEmployeeDTO->email = strval($request->input('email'));
             $createEmployeeDTO->password = Hash::make(strval($request->input('password')));
             $createEmployeeDTO->role = strval($request->input('role'));
-            $createEmployeeDTO->bossID = $request->input('bossID');
+
+            if ($request->bossID != 'default') {
+                $createEmployeeDTO->bossID = intval($request->input('bossID'));
+
+            }
+
+            if ($request->bossID == 'default') {
+                $createEmployeeDTO->bossID = null;
+            }
+
             $createEmployeeDTO->position =  array_map([$this, 'parseInt'], (array) $request->positionIDs);;
 
             $employeeStoredMessage = $this->storeEmployeeUseCase->handle($createEmployeeDTO);
