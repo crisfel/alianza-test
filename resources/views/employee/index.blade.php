@@ -419,7 +419,7 @@
                 console.log('role:' + $('#role'+id).val());
                 console.log('bossID:' + $('#bossID'+id).val());
                 console.log('positionIDs:' + $('#positionIDs'+id).val());
-
+                /*
                 if ($('#name').val() == '' || $('#lastName').val() == '' || $('#identification').val() == '' ||
                     $('#email').val() == '' || $('#address').val() == '' || $('#phone').val() == '' ||
                     $('#city').val() == null || $('#department').val() == null || $('#role').val() == null ||
@@ -438,6 +438,7 @@
 
                     return false;
                 }
+                */
 
 
                 $.ajax({
@@ -470,6 +471,9 @@
                         }).then(function(){
                             window.location="{{getenv('APP_URL')}}/employees";
                         });
+                    },
+                    error: function(r){
+                        console.log(r)
                     }
                 });
             }

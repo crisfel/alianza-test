@@ -30,7 +30,6 @@ class UpdateRequest extends FormRequest
             'city' => 'required|string',
             'department' => 'required|string',
             'email' => 'string',
-            'password' => 'string',
             'role' => 'string',
             'boosID' => 'numeric'
         ];
