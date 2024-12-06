@@ -61,7 +61,7 @@
                                                         <a style="color: darkred;" href="#" title="Editar" class="btn btn-link px-1 mb-0" onclick="showEditModal('{{$employee->id}}')"><i style="color: darkslategrey; font-size: 25px !important;" class="material-icons opacity-10">edit</i></a>
                                                     </div>
                                                     <div class="d-inline">
-                                                        <a style="color: darkgreen;" href="#" title="Eliminar" id="btn-delete" class="btn btn-link px-1 mb-0" onclick="deletePosition('{{$employee->id}}')"><i style="color: darkred; font-size: 25px !important;" class="material-icons opacity-10">delete</i></a>
+                                                        <a style="color: darkgreen;" href="#" title="Eliminar" id="btn-delete" class="btn btn-link px-1 mb-0" onclick="deleteEmployee('{{$employee->id}}')"><i style="color: darkred; font-size: 25px !important;" class="material-icons opacity-10">delete</i></a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -474,6 +474,39 @@
                     },
                     error: function(r){
                         console.log(r)
+                    }
+                });
+            }
+
+            function deleteEmployee(id)
+            {
+                Swal.fire({
+                    title: 'Alerta',
+                    text: '¿Está seguro que quiere borrar este usuario?',
+                    icon: 'question',
+                    showCancelButton: false,
+                    confirmButtonText: 'Aceptar',
+                    allowOutsideClick: true,
+                    allowEscapeKey: false
+                }).then(function(result){
+                    if(result.isConfirmed) {
+                        $.ajax({
+                            url: '{{getenv('APP_URL')}}/api/v1/employee/' + id,
+                            method: 'DELETE',
+                            success: function () {
+                                Swal.fire({
+                                    title: 'Éxito',
+                                    text: 'Registro Eliminado',
+                                    icon: 'success',
+                                    showCancelButton: false,
+                                    confirmButtonText: 'Aceptar',
+                                    allowOutsideClick: false,
+                                    allowEscapeKey: false
+                                }).then(function () {
+                                    window.location = "{{getenv('APP_URL')}}/employees";
+                                });
+                            }
+                        });
                     }
                 });
             }

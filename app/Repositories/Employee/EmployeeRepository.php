@@ -117,11 +117,12 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     {
         try {
             $employee = $this->getByID($id);
-            $employee->delete();
+            $employee->status = 0;
+            $employee->save();
 
             return [
                 'status' => 200,
-                'message' => 'position deleted'
+                'message' => 'employee deleted'
             ];
 
         } catch(Exception $e) {
@@ -147,7 +148,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
     public function getAll()
     {
         try {
-            return User::orderBy('created_at','Desc')->get();
+            return User::where('status', 1)->orderBy('created_at','Desc')->get();
         } catch(Exception $e) {
             return [
                 'status' => 500,
