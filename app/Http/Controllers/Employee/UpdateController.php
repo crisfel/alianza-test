@@ -29,6 +29,7 @@ class UpdateController extends Controller
             $updateEmployeeDTO->phone = strval($request->input('phone'));
             $updateEmployeeDTO->identification = strval($request->input('identification'));
             $updateEmployeeDTO->address = strval($request->input('address'));
+            $updateEmployeeDTO->role = strval($request->input('role'));
             $updateEmployeeDTO->city = strval($request->input('city'));
             $updateEmployeeDTO->department = strval($request->input('department'));
             $updateEmployeeDTO->email = strval($request->input('email'));

@@ -101,6 +101,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 $employee->password = $DTO->password;
             }
 
+            if (isset($DTO->role)) {
+                $employee->role = $DTO->role;
+            }
+
             $employeeUpdated = $employee->save();
 
             if ($employeeUpdated) {
