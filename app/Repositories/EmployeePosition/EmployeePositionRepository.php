@@ -54,5 +54,24 @@ class EmployeePositionRepository implements EmployeePositionRepositoryInterface
         }
     }
 
+    public function delete(UserPosition $userPosition)
+    {
+        try {
+            $userPosition->delete();
+
+            return [
+                'status' => 200,
+                'message' => 'position of user deleted'
+            ];
+
+        } catch(Exception $e) {
+            return [
+                'status' => 500,
+                'message' => 'ERROR DE BASE DE DATOS: ' . $e->getMessage()
+            ];
+        }
+
+    }
+
 
 }

@@ -93,6 +93,10 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                 $employee->boss_id = $DTO->bossID;
             }
 
+            if (isset($DTO->password)) {
+                $employee->password = $DTO->password;
+            }
+
             $employeeUpdated = $employee->save();
 
             if ($employeeUpdated) {

@@ -2,13 +2,12 @@
 
 namespace App\UseCases\Employee;
 
-use App\DTOs\Employee\CreateEmployeeDTO;
+use App\DTOs\Employee\UpdateEmployeeDTO;
 use App\Repositories\Contracts\Employee\EmployeeRepositoryInterface;
 use App\Repositories\Contracts\EmployeePosition\EmployeePositionRepositoryInterface;
-use App\Repositories\EmployeePosition\EmployeePositionRepository;
-use App\UseCases\Contracts\Employee\StoreEmployeeUseCaseInterface;
+use App\UseCases\Contracts\Employee\UpdateEmployeeUseCaseInterface;
 
-class StoreEmployeeUseCase implements StoreEmployeeUseCaseInterface
+class UpdateEmployeeUseCase implements UpdateEmployeeUseCaseInterface
 {
     protected EmployeePositionRepositoryInterface $employeePositionRepository;
     protected EmployeeRepositoryInterface $employeeRepository;
@@ -20,19 +19,24 @@ class StoreEmployeeUseCase implements StoreEmployeeUseCaseInterface
         $this->employeeRepository = $employeeRepository;
     }
 
-    public function handle(CreateEmployeeDTO $DTO)
+    public function handle(UpdateEmployeeDTO $DTO)
     {
         try {
-            $employeeStoredMessage = $this->employeeRepository->store($DTO);
-            $employee = $this->employeeRepository->getByEmail($DTO->email);
+            $employeeUpdatedMessage = $this->employeeRepository->update($DTO);
+            $employee = $this->employeeRepository->getByID($DTO->id);
 
-            if ($employeeStoredMessage['status'] == 200) {
+            $employeePositions = $this->employeePositionRepository->getByUserID($employee->id);
+
+            foreach ($employeePositions as $employeePosition) {
+                $this->employeePositionRepository->delete($employeePosition);
+            }
+
+            if ($employeeUpdatedMessage['status'] == 200) {
                 foreach ($DTO->position as $position) {
                     $this->employeePositionRepository->store($employee->id, $position);
                 }
 
-                return $employeeStoredMessage;
-
+                return $employeeUpdatedMessage;
             }
         } catch(Exception $e) {
             return [

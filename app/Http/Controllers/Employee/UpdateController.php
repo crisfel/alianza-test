@@ -6,16 +6,17 @@ use App\DTOs\Employee\UpdateEmployeeDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Employee\UpdateRequest;
 use App\Repositories\Contracts\Employee\EmployeeRepositoryInterface;
+use App\UseCases\Contracts\Employee\UpdateEmployeeUseCaseInterface;
 use Illuminate\Support\Facades\Hash;
 
 
 class UpdateController extends Controller
 {
-    protected EmployeeRepositoryInterface $employeeRepository;
+    protected UpdateEmployeeUseCaseInterface $updateEmployeeUseCase;
 
-    public function __construct(EmployeeRepositoryInterface $employeeRepository)
+    public function __construct(UpdateEmployeeUseCaseInterface $updateEmployeeUseCase)
     {
-        $this->employeeRepository = $employeeRepository;
+        $this->updateEmployeeUseCase = $updateEmployeeUseCase;
     }
 
     public function __invoke(UpdateRequest $request)
@@ -31,18 +32,30 @@ class UpdateController extends Controller
             $updateEmployeeDTO->city = strval($request->input('city'));
             $updateEmployeeDTO->department = strval($request->input('department'));
             $updateEmployeeDTO->email = strval($request->input('email'));
-            $updateEmployeeDTO->bossID = intval($request->input('bossID'));
+            $updateEmployeeDTO->position = array_map([$this, 'parseInt'], (array) $request->positionIDs);;
 
-            $employeeStoredMessage = $this->employeeRepository->update($updateEmployeeDTO);
+            if (isset($request->bossID)) {
+                $updateEmployeeDTO->bossID = intval($request->input('bossID'));
+            }
 
-            return response()->json($employeeStoredMessage);
+            if (isset($request->password)) {
+                $updateEmployeeDTO->password = strval($request->input('password'));
+            }
+
+            $employeeUpdatedMessage = $this->updateEmployeeUseCase->handle($updateEmployeeDTO);
+
+            return response()->json($employeeUpdatedMessage);
 
         } catch(\Exception $e) {
-
             return response()->json([
                 'status' => 500,
                 'message' => 'ERROR: ' . $e->getMessage()
             ]);
         }
+    }
+
+    public function parseInt(string $id)
+    {
+        return intval($id);
     }
 }

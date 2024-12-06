@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\UseCases\Contracts\Employee\StoreEmployeeUseCaseInterface;
+use App\UseCases\Contracts\Employee\UpdateEmployeeUseCaseInterface;
 use App\UseCases\Employee\StoreEmployeeUseCase;
+use App\UseCases\Employee\UpdateEmployeeUseCase;
 use Illuminate\Support\ServiceProvider;
 
 class UseCaseServicesProvider extends ServiceProvider
@@ -12,7 +14,8 @@ class UseCaseServicesProvider extends ServiceProvider
      * Register services.
      */
     protected array $classes = [
-        StoreEmployeeUseCaseInterface::class => StoreEmployeeUseCase::class
+        StoreEmployeeUseCaseInterface::class => StoreEmployeeUseCase::class,
+        UpdateEmployeeUseCaseInterface::class => UpdateEmployeeUseCase::class
     ];
 
 

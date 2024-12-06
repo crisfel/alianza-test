@@ -33,6 +33,7 @@ class StoreController extends Controller
             $createEmployeeDTO->email = strval($request->input('email'));
             $createEmployeeDTO->password = Hash::make(strval($request->input('password')));
             $createEmployeeDTO->role = strval($request->input('role'));
+
             if (isset($request->bossID)) {
                 $createEmployeeDTO->bossID = intval($request->input('bossID'));
             }

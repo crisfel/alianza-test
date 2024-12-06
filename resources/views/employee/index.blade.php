@@ -405,6 +405,75 @@
                 }
             }
 
+            function updateEmployee(id)
+            {
+                console.log('name:' + $('#name'+id).val());
+                console.log('lastName:' + $('#lastName'+id).val());
+                console.log('phone:' + $('#phone'+id).val());
+                console.log('identification:' + $('#identification'+id).val());
+                console.log('address:' + $('#address'+id).val());
+                console.log('city:' + $('#city'+id).val());
+                console.log('department:' + $('#department'+id).val());
+                console.log('email:' + $('#email'+id).val());
+                console.log('password:' + $('#password'+id).val());
+                console.log('role:' + $('#role'+id).val());
+                console.log('bossID:' + $('#bossID'+id).val());
+                console.log('positionIDs:' + $('#positionIDs'+id).val());
+
+                if ($('#name').val() == '' || $('#lastName').val() == '' || $('#identification').val() == '' ||
+                    $('#email').val() == '' || $('#address').val() == '' || $('#phone').val() == '' ||
+                    $('#city').val() == null || $('#department').val() == null || $('#role').val() == null ||
+                    $('#city').val() == 'default' || $('#department').val() == 'default' || $('#role').val() == 'default' ||
+                    ($('#role').val() == 'Colaborador' && $('#bossID').val() == null) || ($('#role').val() == 'Colaborador' && $('#bossID').val() == 'default')) {
+
+                    Swal.fire({
+                        title: 'Alerta',
+                        text: 'Por favor llene los campos: nombres, apellidos, identificación, email, dirección, teléfono, ciudad, cargo, departamento, rol y contraseña',
+                        icon: 'warning',
+                        showCancelButton: false,
+                        confirmButtonText: 'Aceptar',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                    });
+
+                    return false;
+                }
+
+
+                $.ajax({
+                    url: '{{getenv('APP_URL')}}/api/v1/employee/update',
+                    method: 'POST',
+                    data: {
+                        'employeeID': id,
+                        'name': $('#name'+id).val(),
+                        'lastName': $('#lastName'+id).val(),
+                        'phone': $('#phone'+id).val(),
+                        'identification': $('#identification'+id).val(),
+                        'address': $('#address'+id).val(),
+                        'city': $('#city'+id).val(),
+                        'department': $('#department'+id).val(),
+                        'email': $('#email'+id).val(),
+                        'password': $('#password'+id).val(),
+                        'role': $('#role'+id).val(),
+                        'bossID': $('#bossID'+id).val(),
+                        'positionIDs': $('#positionIDs'+id).val()
+                    },
+                    success: function() {
+                        Swal.fire({
+                            title: 'Éxito',
+                            text: 'Modificación Satisfactoria',
+                            icon: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: 'Aceptar',
+                            allowOutsideClick: false,
+                            allowEscapeKey: false
+                        }).then(function(){
+                            window.location="{{getenv('APP_URL')}}/employees";
+                        });
+                    }
+                });
+            }
+
         </script>
 
 

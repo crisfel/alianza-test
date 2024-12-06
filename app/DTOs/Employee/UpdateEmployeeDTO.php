@@ -14,4 +14,6 @@ class UpdateEmployeeDTO
     public string $department;
     public string $email;
     public ?int $bossID;
+    public string $password;
+    public array $position;
 }
